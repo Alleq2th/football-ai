@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Football AI</title>
+</head>
+<body>
+
+    <h1>⚽ Football AI</h1>
+
+    {% for post in posts %}
+
+        <hr>
+
+        <h2>{{ post.headline }}</h2>
+
+        <h3>News Post</h3>
+        <p>{{ post.content.news_post }}</p>
+
+        <h3>Engagement Post</h3>
+        <p>{{ post.content.engagement_post }}</p>
+
+        <h3>Instagram Post</h3>
+        <p>{{ post.content.instagram_post }}</p>
+
+    {% endfor %}
+
+</body>
+</html>
