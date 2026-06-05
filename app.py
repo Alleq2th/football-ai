@@ -11,7 +11,7 @@ def home():
 
     posts = []
 
-    for story in news[:5]:
+    for story in news[:20]:
 
         content = generate_content(story["title"])
 
