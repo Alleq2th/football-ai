@@ -9,6 +9,7 @@ app = Flask(__name__)
 def home():
 
     news = get_news()
+    
     news.sort(
     key=lambda story: score_story(story["title"]),
     reverse=True
