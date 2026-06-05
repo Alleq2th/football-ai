@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from news_fetcher import get_news
 from content_generator import generate_content
+from story_ranker import score_story
 
 app = Flask(__name__)
 
@@ -8,6 +9,10 @@ app = Flask(__name__)
 def home():
 
     news = get_news()
+    news.sort(
+    key=lambda story: score_story(story["title"]),
+    reverse=True
+    )
 
     posts = []
 
@@ -16,9 +21,11 @@ def home():
         content = generate_content(story["title"])
 
         posts.append({
-            "headline": story["title"],
-            "link": story["link"],
-            "content": content
+    "headline": story["title"],
+    "link": story["link"],
+    "score": score_story(story["title"]),
+    "content": content
+})
         })
 
     return render_template(
