@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from news_fetcher import get_news
 from content_generator import generate_content
 
@@ -21,12 +21,10 @@ def home():
             "content": content
         })
 
-    return {
-        "name": "Football AI",
-        "status": "running",
-        "posts_generated": len(posts),
-        "posts": posts
-    }
+    return render_template(
+        "index.html",
+        posts=posts
+    )
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
