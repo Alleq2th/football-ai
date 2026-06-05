@@ -2,27 +2,103 @@
 <html>
 <head>
     <title>Football AI</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background:#f5f5f5;
+            margin:0;
+            padding:15px;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        .card{
+            background:white;
+            padding:15px;
+            margin-bottom:15px;
+            border-radius:10px;
+            box-shadow:0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            margin-top:8px;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        .hidden{
+            display:none;
+        }
+
+        a{
+            text-decoration:none;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-    <h1>⚽ Football AI</h1>
+<h1>⚽ Football AI</h1>
 
-    {% for post in posts %}
+{% for post in posts %}
 
-        <hr>
+<div class="card">
 
-        <h2>{{ post.headline }}</h2>
+    <h3>{{ post.headline }}</h3>
 
-        <h3>News Post</h3>
+    <button onclick="toggleContent('content{{ loop.index }}')">
+        View Posts
+    </button>
+
+    <a href="{{ post.link }}" target="_blank">
+        <button>
+            Open Story
+        </button>
+    </a>
+
+    <div id="content{{ loop.index }}" class="hidden">
+
+        <h4>News Post</h4>
         <p>{{ post.content.news_post }}</p>
 
-        <h3>Engagement Post</h3>
+        <h4>Engagement Post</h4>
         <p>{{ post.content.engagement_post }}</p>
 
-        <h3>Instagram Post</h3>
+        <h4>Instagram Post</h4>
         <p>{{ post.content.instagram_post }}</p>
 
-    {% endfor %}
+    </div>
+
+</div>
+
+{% endfor %}
+
+<script>
+
+function toggleContent(id){
+
+    const content = document.getElementById(id);
+
+    if(content.style.display === "block"){
+        content.style.display = "none";
+    }else{
+        content.style.display = "block";
+    }
+
+}
+
+</script>
 
 </body>
 </html>
