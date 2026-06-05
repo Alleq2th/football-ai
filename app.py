@@ -7,7 +7,14 @@ def home():
     return {
         "name": "Football AI",
         "status": "running",
-        "version": "1.0"
+        "version": "1.0",
+        "sources": [
+            "BBC Football",
+            "ESPN FC",
+            "Yahoo Soccer",
+            "Goal.com",
+            "90min"
+        ]
     }
 
 if __name__ == "__main__":
