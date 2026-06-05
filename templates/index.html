@@ -70,13 +70,22 @@
     <div id="content{{ loop.index }}" class="hidden">
 
         <h4>News Post</h4>
-        <p>{{ post.content.news_post }}</p>
+<p id="news{{ loop.index }}">{{ post.content.news_post }}</p>
+<button onclick="copyText('news{{ loop.index }}')">
+    Copy News Post
+</button>
 
-        <h4>Engagement Post</h4>
-        <p>{{ post.content.engagement_post }}</p>
+<h4>Engagement Post</h4>
+<p id="engagement{{ loop.index }}">{{ post.content.engagement_post }}</p>
+<button onclick="copyText('engagement{{ loop.index }}')">
+    Copy Engagement Post
+</button>
 
-        <h4>Instagram Post</h4>
-        <p>{{ post.content.instagram_post }}</p>
+<h4>Instagram Post</h4>
+<p id="instagram{{ loop.index }}">{{ post.content.instagram_post }}</p>
+<button onclick="copyText('instagram{{ loop.index }}')">
+    Copy Instagram Post
+</button>
 
     </div>
 
@@ -96,6 +105,16 @@ function toggleContent(id){
         content.style.display = "block";
     }
 
+}
+
+function copyText(id){
+
+    const text =
+        document.getElementById(id).innerText;
+
+    navigator.clipboard.writeText(text);
+
+    alert("Copied!");
 }
 
 </script>
