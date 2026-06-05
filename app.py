@@ -9,10 +9,12 @@ app = Flask(__name__)
 def home():
 
     news = get_news()
-    
-    news.sort(
-    key=lambda story: score_story(story["title"]),
-    reverse=True
+
+    # Sort stories by ranking score
+    news = sorted(
+        news,
+        key=lambda story: score_story(story["title"]),
+        reverse=True
     )
 
     posts = []
@@ -22,11 +24,10 @@ def home():
         content = generate_content(story["title"])
 
         posts.append({
-    "headline": story["title"],
-    "link": story["link"],
-    "score": score_story(story["title"]),
-    "content": content
-})
+            "headline": story["title"],
+            "link": story["link"],
+            "score": score_story(story["title"]),
+            "content": content
         })
 
     return render_template(
