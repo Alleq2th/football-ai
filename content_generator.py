@@ -1,16 +1,21 @@
 import random
 from story_classifier import classify_story
-
-def generate_content(headline):
+from article_reader import get_article_text
+def generate_content(headline, link):
 
     story_type = classify_story(headline)
+    article_text = get_article_text(link)
+
+if article_text:
+    summary = article_text[:500]
+else:
+    summary = headline
 
     if story_type == "world_cup":
 
         return {
-            "news_post":
-                f"🌍 WORLD CUP UPDATE\n\n{headline}\n\nThis could have a major impact on the tournament.",
-
+            ""news_post":
+f"🌍 WORLD CUP UPDATE\n\n{headline}\n\n{summary}"
             "engagement_post":
                 f"🌍 World Cup fans...\n\n{headline}\n\nHow big of a deal is this?",
 
