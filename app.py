@@ -1,20 +1,17 @@
 from flask import Flask
+from news_fetcher import get_news
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
+    news = get_news()
+
     return {
         "name": "Football AI",
         "status": "running",
-        "version": "1.0",
-        "sources": [
-            "BBC Football",
-            "ESPN FC",
-            "Yahoo Soccer",
-            "Goal.com",
-            "90min"
-        ]
+        "stories_found": len(news),
+        "news": news[:5]
     }
 
 if __name__ == "__main__":
