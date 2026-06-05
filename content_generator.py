@@ -1,34 +1,27 @@
+import random
+
 def generate_content(headline):
-    
-    news_post = f"""
-🚨 FOOTBALL UPDATE
 
-{headline}
+    news_templates = [
+        f"🚨 BREAKING\n\n{headline}\n\nMore details to follow.",
+        f"⚽ FOOTBALL UPDATE\n\n{headline}\n\nStay tuned for more.",
+        f"📢 LATEST NEWS\n\n{headline}\n\nFootball never sleeps."
+    ]
 
-Stay tuned for more football news.
-"""
+    debate_templates = [
+        f"👀 Football fans...\n\n{headline}\n\nWhat's your opinion?",
+        f"🤔 Be honest...\n\n{headline}\n\nAre people overreacting or not?",
+        f"🔥 Hot take:\n\n{headline}\n\nAgree or disagree?"
+    ]
 
-    engagement_post = f"""
-👀 Football fans...
-
-{headline}
-
-What's your opinion on this?
-Drop your thoughts below.
-"""
-
-    instagram_post = f"""
-⚽🔥 {headline}
-
-Football never stops delivering drama.
-
-What do you think?
-
-#football #soccer #premierleague
-"""
+    instagram_templates = [
+        f"⚽🔥 {headline}\n\nRate this from 1–10 👇\n\n#football #soccer",
+        f"👀 {headline}\n\nThoughts?\n\n#football #premierleague",
+        f"🔥 Football never disappoints.\n\n{headline}\n\n#footballnews"
+    ]
 
     return {
-        "news_post": news_post.strip(),
-        "engagement_post": engagement_post.strip(),
-        "instagram_post": instagram_post.strip()
+        "news_post": random.choice(news_templates),
+        "engagement_post": random.choice(debate_templates),
+        "instagram_post": random.choice(instagram_templates)
     }
