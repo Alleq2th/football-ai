@@ -21,7 +21,10 @@ def home():
 
     for story in news[:20]:
 
-        content = generate_content(story["title"])
+        content = generate_content(
+    story["title"],
+    story["link"]
+        )
 
         posts.append({
             "headline": story["title"],
