@@ -5,14 +5,14 @@ def create_graphic(headline):
     width = 1080
     height = 1080
 
-    image = Image.new("RGB", (width, height), (12, 18, 35))
+    image = Image.new("RGB", (width, height), (8, 12, 30))
 
     draw = ImageDraw.Draw(image)
 
-    # Header
+    # Top banner
     draw.rectangle(
         [(0, 0), (1080, 120)],
-        fill=(20, 120, 255)
+        fill=(0, 102, 255)
     )
 
     draw.text(
@@ -21,28 +21,54 @@ def create_graphic(headline):
         fill=(255, 255, 255)
     )
 
-    # Breaking banner
+    # Breaking news banner
     draw.rectangle(
-        [(40, 180), (500, 260)],
+        [(40, 170), (450, 250)],
         fill=(220, 40, 40)
     )
 
     draw.text(
-        (60, 205),
+        (60, 195),
         "BREAKING NEWS",
         fill=(255, 255, 255)
     )
 
-    # Main headline
-    headline = headline[:100]
+    # Format headline into multiple lines
+    words = headline.upper().split()
 
+    lines = []
+    current = ""
+
+    for word in words:
+
+        if len(current + " " + word) < 18:
+            current += " " + word
+        else:
+            lines.append(current.strip())
+            current = word
+
+    lines.append(current)
+
+    y = 340
+
+    for line in lines[:4]:
+
+        draw.text(
+            (60, y),
+            line,
+            fill=(255, 255, 255)
+        )
+
+        y += 90
+
+    # Subheading
     draw.text(
-        (60, 350),
-        headline,
-        fill=(255, 255, 255)
+        (60, 760),
+        "LATEST FOOTBALL UPDATE",
+        fill=(180, 180, 180)
     )
 
-    # Footer
+    # Footer line
     draw.line(
         [(60, 900), (1020, 900)],
         fill=(255, 255, 255),
