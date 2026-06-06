@@ -17,7 +17,7 @@ def create_graphic(headline):
         bg_color = (8, 24, 64)
         header_color = (196, 160, 40)
         banner_color = (196, 160, 40)
-        logo_path = "assets/competition_logos/world_cup.png"
+        logo_path = "assets/world_cup.png"
         banner_text = "WORLD CUP"
 
     # Champions League
@@ -25,7 +25,7 @@ def create_graphic(headline):
         bg_color = (5, 20, 80)
         header_color = (255, 255, 255)
         banner_color = (25, 50, 150)
-        logo_path = "assets/competition_logos/champions_league.png"
+        logo_path = "assets/champions_league.png"
         banner_text = "CHAMPIONS LEAGUE"
 
     # Premier League
@@ -33,7 +33,7 @@ def create_graphic(headline):
         bg_color = (55, 0, 90)
         header_color = (120, 0, 180)
         banner_color = (0, 255, 180)
-        logo_path = "assets/competition_logos/premier_league.png"
+        logo_path = "assets/premier_league.png"
         banner_text = "PREMIER LEAGUE"
 
     width = 1080
