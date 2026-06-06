@@ -1,21 +1,24 @@
 import random
 from story_classifier import classify_story
 from article_reader import get_article_text
+
 def generate_content(headline, link):
 
     story_type = classify_story(headline)
+
     article_text = get_article_text(link)
 
-if article_text:
-    summary = article_text[:500]
-else:
-    summary = headline
+    if article_text:
+        summary = article_text[:500]
+    else:
+        summary = headline
 
     if story_type == "world_cup":
 
         return {
-            ""news_post":
-f"🌍 WORLD CUP UPDATE\n\n{headline}\n\n{summary}"
+            "news_post":
+                f"🌍 WORLD CUP UPDATE\n\n{headline}\n\n{summary}",
+
             "engagement_post":
                 f"🌍 World Cup fans...\n\n{headline}\n\nHow big of a deal is this?",
 
@@ -27,7 +30,7 @@ f"🌍 WORLD CUP UPDATE\n\n{headline}\n\n{summary}"
 
         return {
             "news_post":
-                f"🔄 TRANSFER UPDATE\n\n{headline}",
+                f"🔄 TRANSFER UPDATE\n\n{headline}\n\n{summary}",
 
             "engagement_post":
                 f"👀 Transfer Talk\n\n{headline}\n\nSmart signing or bad business?",
@@ -40,7 +43,7 @@ f"🌍 WORLD CUP UPDATE\n\n{headline}\n\n{summary}"
 
         return {
             "news_post":
-                f"👔 MANAGER UPDATE\n\n{headline}",
+                f"👔 MANAGER UPDATE\n\n{headline}\n\n{summary}",
 
             "engagement_post":
                 f"🤔 Manager Debate\n\n{headline}\n\nRight decision or mistake?",
@@ -53,7 +56,7 @@ f"🌍 WORLD CUP UPDATE\n\n{headline}\n\n{summary}"
 
         return {
             "news_post":
-                f"🏆 CHAMPIONS LEAGUE\n\n{headline}",
+                f"🏆 CHAMPIONS LEAGUE\n\n{headline}\n\n{summary}",
 
             "engagement_post":
                 f"🏆 UCL Debate\n\n{headline}\n\nWho benefits most from this?",
@@ -65,9 +68,9 @@ f"🌍 WORLD CUP UPDATE\n\n{headline}\n\n{summary}"
     else:
 
         news_templates = [
-            f"🚨 BREAKING\n\n{headline}",
-            f"⚽ FOOTBALL UPDATE\n\n{headline}",
-            f"📢 LATEST NEWS\n\n{headline}"
+            f"🚨 BREAKING\n\n{headline}\n\n{summary}",
+            f"⚽ FOOTBALL UPDATE\n\n{headline}\n\n{summary}",
+            f"📢 LATEST NEWS\n\n{headline}\n\n{summary}"
         ]
 
         engagement_templates = [
@@ -86,4 +89,4 @@ f"🌍 WORLD CUP UPDATE\n\n{headline}\n\n{summary}"
             "news_post": random.choice(news_templates),
             "engagement_post": random.choice(engagement_templates),
             "instagram_post": random.choice(instagram_templates)
-        }
+    }
