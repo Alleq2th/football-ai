@@ -103,20 +103,28 @@ How will this impact the competition?
 What's your opinion on this story?
 """
 
-    engagement_templates = [
-        f"🔥 {headline}\n\nWhat do you think?",
-        f"👀 {headline}\n\nAgree or disagree?",
-        f"⚽ {headline}\n\nFootball fans, thoughts?"
-    ]
+    engagement_post = f"""🔥 {headline}
 
-    instagram_templates = [
-        f"⚽ {headline}\n\n#Football #FootballNews",
-        f"🔥 {headline}\n\n#Soccer #Football",
-        f"👀 {headline}\n\n#FootballNews"
-    ]
+{summary}
+
+This story could have a significant impact on football fans, players, and teams depending on how events develop in the coming days. Discussions are already beginning across the football world, and many supporters will have strong opinions on what happens next.
+
+What is your take on this situation? Do you agree with the decisions being made, or would you do things differently?
+"""
+
+    instagram_post = f"""⚽ {headline}
+
+{summary}
+
+Football never stops delivering big talking points, and this is another story that could shape conversations among fans. Whether you're supporting the player, manager, or club involved, there is plenty to discuss as more details emerge.
+
+👇 Share your thoughts below.
+
+#Football #FootballNews #Soccer #WorldCup #ChampionsLeague
+"""
 
     return {
         "news_post": news_post,
-        "engagement_post": random.choice(engagement_templates),
-        "instagram_post": random.choice(instagram_templates)
-    }
+        "engagement_post": engagement_post,
+        "instagram_post": instagram_post
+        }
