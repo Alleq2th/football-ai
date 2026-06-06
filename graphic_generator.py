@@ -1,216 +1,245 @@
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
 from datetime import datetime
 
 def create_graphic(headline):
 
-    headline_lower = headline.lower()
+headline_lower = headline.lower()
 
-    # Default Theme
-    bg_color = (10, 15, 35)
-    header_color = (0, 102, 255)
-    banner_color = (220, 30, 30)
-    logo_path = None
-    banner_text = "BREAKING NEWS"
+# DEFAULT THEME
+bg_top = (10, 20, 50)
+bg_bottom = (3, 8, 20)
 
-    # World Cup
-    if "world cup" in headline_lower:
-        bg_color = (8, 24, 64)
-        header_color = (196, 160, 40)
-        banner_color = (196, 160, 40)
-        logo_path = "assets/world_cup.png"
-        banner_text = "WORLD CUP"
+accent = (220, 30, 30)
 
-    # Champions League
-    elif "champions league" in headline_lower:
-        bg_color = (5, 20, 80)
-        header_color = (255, 255, 255)
-        banner_color = (25, 50, 150)
-        logo_path = "assets/champions_league.png"
-        banner_text = "CHAMPIONS LEAGUE"
+logo_path = None
+banner_text = "BREAKING"
 
-    # Premier League
-    elif "premier league" in headline_lower:
-        bg_color = (55, 0, 90)
-        header_color = (120, 0, 180)
-        banner_color = (0, 255, 180)
-        logo_path = "assets/premier_league.png"
-        banner_text = "PREMIER LEAGUE"
+# WORLD CUP
+if "world cup" in headline_lower:
+    bg_top = (10, 30, 90)
+    bg_bottom = (2, 8, 30)
+    accent = (196, 160, 40)
+    logo_path = "assets/world_cup.png"
+    banner_text = "WORLD CUP"
 
-    width = 1080
-    height = 1080
+# CHAMPIONS LEAGUE
+elif "champions league" in headline_lower:
+    bg_top = (10, 35, 120)
+    bg_bottom = (0, 10, 40)
+    accent = (255, 255, 255)
+    logo_path = "assets/champions_league.png"
+    banner_text = "CHAMPIONS LEAGUE"
 
-    # Create Gradient Background
-    image = Image.new("RGB", (width, height))
-    draw = ImageDraw.Draw(image)
+# PREMIER LEAGUE
+elif "premier league" in headline_lower:
+    bg_top = (70, 0, 120)
+    bg_bottom = (20, 0, 40)
+    accent = (0, 255, 180)
+    logo_path = "assets/premier_league.png"
+    banner_text = "PREMIER LEAGUE"
 
-    for y in range(height):
+width = 1080
+height = 1080
 
-        ratio = y / height
+image = Image.new("RGB", (width, height))
+draw = ImageDraw.Draw(image)
 
-        r = int(bg_color[0] * (1 - ratio * 0.5))
-        g = int(bg_color[1] * (1 - ratio * 0.5))
-        b = int(bg_color[2] * (1 - ratio * 0.5))
+# PREMIUM GRADIENT
+for y in range(height):
 
-        draw.line(
-            [(0, y), (width, y)],
-            fill=(r, g, b)
-        )
+    ratio = y / height
 
-    draw = ImageDraw.Draw(image)
+    r = int(bg_top[0] * (1 - ratio) + bg_bottom[0] * ratio)
+    g = int(bg_top[1] * (1 - ratio) + bg_bottom[1] * ratio)
+    b = int(bg_top[2] * (1 - ratio) + bg_bottom[2] * ratio)
 
-    # Fonts
-    title_font = ImageFont.truetype(
-        "fonts/Anton-Regular.ttf",
-        120
-    )
-
-    banner_font = ImageFont.truetype(
-        "fonts/Anton-Regular.ttf",
-        60
-    )
-
-    footer_font = ImageFont.truetype(
-        "fonts/Anton-Regular.ttf",
-        38
-    )
-
-    small_font = ImageFont.truetype(
-        "fonts/Anton-Regular.ttf",
-        30
-    )
-
-    # Header
-    draw.rectangle(
-        [(0, 0), (1080, 120)],
-        fill=header_color
-    )
-
-    draw.text(
-        (40, 25),
-        "FOOTBALL AI NEWSROOM",
-        font=banner_font,
-        fill=(255, 255, 255)
-    )
-
-    # Date
-    today = datetime.now().strftime("%d %b %Y")
-
-    draw.text(
-        (820, 40),
-        today,
-        font=small_font,
-        fill=(255, 255, 255)
-    )
-
-    # Category Banner
-    draw.rounded_rectangle(
-        [(40, 170), (650, 260)],
-        radius=20,
-        fill=banner_color
-    )
-
-    draw.text(
-        (70, 185),
-        banner_text,
-        font=banner_font,
-        fill=(255, 255, 255)
-    )
-
-    # Top Story Badge
-    draw.rounded_rectangle(
-        [(60, 290), (280, 345)],
-        radius=18,
-        fill=(255, 255, 255)
-    )
-
-    draw.text(
-        (95, 300),
-        "TOP STORY",
-        font=small_font,
-        fill=(0, 0, 0)
-    )
-
-    # Logo Circle
-    draw.ellipse(
-        [(780, 110), (1040, 370)],
-        fill=(255, 255, 255)
-    )
-
-    # Competition Logo
-    if logo_path:
-        try:
-
-            logo = Image.open(
-                logo_path
-            ).convert("RGBA")
-
-            logo.thumbnail((180, 180))
-
-            image.paste(
-                logo,
-                (820, 150),
-                logo
-            )
-
-        except:
-            pass
-
-    # Headline Formatting
-    words = headline.upper().split()
-
-    lines = []
-    current = ""
-
-    for word in words:
-
-        if len(current + " " + word) <= 14:
-            current += " " + word
-
-        else:
-            lines.append(current.strip())
-            current = word
-
-    lines.append(current)
-
-    y = 390
-
-    for line in lines[:4]:
-
-        # Shadow
-        draw.text(
-            (66, y + 6),
-            line,
-            font=title_font,
-            fill=(0, 0, 0)
-        )
-
-        # Main Text
-        draw.text(
-            (60, y),
-            line,
-            font=title_font,
-            fill=(255, 255, 255)
-        )
-
-        y += 130
-
-    # Divider Line
     draw.line(
-        [(60, 900), (1020, 900)],
-        fill=(255, 255, 255),
-        width=4
+        [(0, y), (width, y)],
+        fill=(r, g, b)
     )
 
-    # Watermark
+# GLOW EFFECT
+glow = Image.new("RGBA", (width, height), (0,0,0,0))
+glow_draw = ImageDraw.Draw(glow)
+
+glow_draw.ellipse(
+    [(650,120),(1050,520)],
+    fill=(255,255,255,35)
+)
+
+glow = glow.filter(ImageFilter.GaussianBlur(120))
+
+image = Image.alpha_composite(
+    image.convert("RGBA"),
+    glow
+).convert("RGB")
+
+draw = ImageDraw.Draw(image)
+
+# FONTS
+title_font = ImageFont.truetype(
+    "fonts/Anton-Regular.ttf",
+    95
+)
+
+banner_font = ImageFont.truetype(
+    "fonts/Anton-Regular.ttf",
+    58
+)
+
+small_font = ImageFont.truetype(
+    "fonts/Anton-Regular.ttf",
+    30
+)
+
+watermark_font = ImageFont.truetype(
+    "fonts/Anton-Regular.ttf",
+    52
+)
+
+# HEADER
+draw.rectangle(
+    [(0,0),(1080,110)],
+    fill=accent
+)
+
+draw.text(
+    (40,20),
+    "FOOTBALL AI",
+    font=banner_font,
+    fill="white"
+)
+
+today = datetime.now().strftime("%d %b %Y")
+
+draw.text(
+    (840,30),
+    today,
+    font=small_font,
+    fill="white"
+)
+
+# CATEGORY BAR
+draw.rounded_rectangle(
+    [(50,160),(620,240)],
+    radius=20,
+    fill=accent
+)
+
+draw.text(
+    (80,172),
+    banner_text,
+    font=banner_font,
+    fill="white"
+)
+
+# TOP STORY BADGE
+draw.rounded_rectangle(
+    [(60,275),(250,330)],
+    radius=15,
+    fill=(255,255,255)
+)
+
+draw.text(
+    (88,286),
+    "TOP STORY",
+    font=small_font,
+    fill=(0,0,0)
+)
+
+# SCORE BADGE
+draw.rounded_rectangle(
+    [(270,275),(390,330)],
+    radius=15,
+    fill=accent
+)
+
+draw.text(
+    (300,286),
+    "95",
+    font=small_font,
+    fill="white"
+)
+
+# SMALLER LOGO CIRCLE
+draw.ellipse(
+    [(790,120),(1010,340)],
+    fill=(255,255,255)
+)
+
+if logo_path:
+
+    try:
+
+        logo = Image.open(
+            logo_path
+        ).convert("RGBA")
+
+        logo.thumbnail((140,140))
+
+        image.paste(
+            logo,
+            (830,160),
+            logo
+        )
+
+    except:
+        pass
+
+# HEADLINE
+words = headline.upper().split()
+
+lines = []
+current = ""
+
+for word in words:
+
+    if len(current + " " + word) < 16:
+        current += " " + word
+
+    else:
+        lines.append(current.strip())
+        current = word
+
+lines.append(current)
+
+y = 390
+
+for line in lines[:4]:
+
     draw.text(
-        (760, 960),
-        "@FootballAI",
-        font=footer_font,
-        fill=(80, 80, 80)
+        (66,y+6),
+        line,
+        font=title_font,
+        fill=(0,0,0)
     )
 
-    filename = "static/latest_graphic.png"
+    draw.text(
+        (60,y),
+        line,
+        font=title_font,
+        fill=(255,255,255)
+    )
 
-    image.save(filename)
+    y += 110
 
-    return filename
+# DIVIDER
+draw.line(
+    [(60,900),(1020,900)],
+    fill=(255,255,255),
+    width=3
+)
+
+# WATERMARK
+draw.text(
+    (690,945),
+    "@FootballAI",
+    font=watermark_font,
+    fill=(255,255,255,40)
+)
+
+filename = "static/latest_graphic.png"
+
+image.save(filename)
+
+return filename
