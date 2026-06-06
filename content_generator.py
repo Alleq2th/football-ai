@@ -9,84 +9,114 @@ def generate_content(headline, link):
     article_text = get_article_text(link)
 
     if article_text:
-        summary = article_text[:500]
+        summary = article_text[:300]
     else:
         summary = headline
 
     if story_type == "world_cup":
 
-        return {
-            "news_post":
-                f"🌍 WORLD CUP UPDATE\n\n{headline}\n\n{summary}",
+        news_post = f"""🌍 WORLD CUP UPDATE
 
-            "engagement_post":
-                f"🌍 World Cup fans...\n\n{headline}\n\nHow big of a deal is this?",
+{headline}
 
-            "instagram_post":
-                f"🌍 {headline}\n\nCould this affect the World Cup in a major way?\n\n#WorldCup #Football"
-        }
+📰 Summary:
+{summary}
+
+⚡ Why It Matters:
+• This could affect World Cup preparations.
+• Teams and fans will be watching closely.
+• Tournament expectations may change.
+
+💬 Question:
+How important is this story for the World Cup?
+"""
 
     elif story_type == "transfer":
 
-        return {
-            "news_post":
-                f"🔄 TRANSFER UPDATE\n\n{headline}\n\n{summary}",
+        news_post = f"""🔄 TRANSFER UPDATE
 
-            "engagement_post":
-                f"👀 Transfer Talk\n\n{headline}\n\nSmart signing or bad business?",
+{headline}
 
-            "instagram_post":
-                f"🔄 {headline}\n\nRate this move from 1-10.\n\n#TransferNews #Football"
-        }
+📰 Summary:
+{summary}
+
+⚡ Why It Matters:
+• It could change a team's season.
+• Fans will debate whether it's a good move.
+• Rival clubs may respond.
+
+💬 Question:
+Would you make this signing?
+"""
 
     elif story_type == "manager":
 
-        return {
-            "news_post":
-                f"👔 MANAGER UPDATE\n\n{headline}\n\n{summary}",
+        news_post = f"""👔 MANAGER UPDATE
 
-            "engagement_post":
-                f"🤔 Manager Debate\n\n{headline}\n\nRight decision or mistake?",
+{headline}
 
-            "instagram_post":
-                f"👔 {headline}\n\nWhat happens next?\n\n#Football"
-        }
+📰 Summary:
+{summary}
+
+⚡ Why It Matters:
+• Coaching decisions shape results.
+• Squad morale may be affected.
+• Fans will judge the decision quickly.
+
+💬 Question:
+Was this the right decision?
+"""
 
     elif story_type == "champions_league":
 
-        return {
-            "news_post":
-                f"🏆 CHAMPIONS LEAGUE\n\n{headline}\n\n{summary}",
+        news_post = f"""🏆 CHAMPIONS LEAGUE
 
-            "engagement_post":
-                f"🏆 UCL Debate\n\n{headline}\n\nWho benefits most from this?",
+{headline}
 
-            "instagram_post":
-                f"🏆 {headline}\n\nChampions League drama never stops.\n\n#UCL #ChampionsLeague"
-        }
+📰 Summary:
+{summary}
+
+⚡ Why It Matters:
+• Champions League matches define seasons.
+• Pressure increases for players and managers.
+• Qualification and trophies are on the line.
+
+💬 Question:
+How will this impact the competition?
+"""
 
     else:
 
-        news_templates = [
-            f"🚨 BREAKING\n\n{headline}\n\n{summary}",
-            f"⚽ FOOTBALL UPDATE\n\n{headline}\n\n{summary}",
-            f"📢 LATEST NEWS\n\n{headline}\n\n{summary}"
-        ]
+        news_post = f"""⚽ FOOTBALL UPDATE
 
-        engagement_templates = [
-            f"👀 Football fans...\n\n{headline}\n\nWhat's your opinion?",
-            f"🔥 Hot take:\n\n{headline}\n\nAgree or disagree?",
-            f"🤔 Be honest...\n\n{headline}\n\nThoughts?"
-        ]
+{headline}
 
-        instagram_templates = [
-            f"⚽ {headline}\n\n#Football",
-            f"🔥 {headline}\n\n#FootballNews",
-            f"👀 {headline}\n\n#Soccer"
-        ]
+📰 Summary:
+{summary}
 
-        return {
-            "news_post": random.choice(news_templates),
-            "engagement_post": random.choice(engagement_templates),
-            "instagram_post": random.choice(instagram_templates)
+⚡ Why It Matters:
+• This could influence upcoming matches.
+• Fans are discussing the implications.
+• Clubs may need to react.
+
+💬 Question:
+What's your opinion on this story?
+"""
+
+    engagement_templates = [
+        f"🔥 {headline}\n\nWhat do you think?",
+        f"👀 {headline}\n\nAgree or disagree?",
+        f"⚽ {headline}\n\nFootball fans, thoughts?"
+    ]
+
+    instagram_templates = [
+        f"⚽ {headline}\n\n#Football #FootballNews",
+        f"🔥 {headline}\n\n#Soccer #Football",
+        f"👀 {headline}\n\n#FootballNews"
+    ]
+
+    return {
+        "news_post": news_post,
+        "engagement_post": random.choice(engagement_templates),
+        "instagram_post": random.choice(instagram_templates)
     }
