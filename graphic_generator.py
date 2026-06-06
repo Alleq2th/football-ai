@@ -38,7 +38,24 @@ def create_graphic(headline):
 
     image = Image.new("RGB", (width, height))
     draw = ImageDraw.Draw(image)
+vignette = Image.new("RGBA", (width, height), (0,0,0,0))
+v_draw = ImageDraw.Draw(vignette)
 
+for i in range(120):
+
+    alpha = int(i * 0.8)
+
+    v_draw.rectangle(
+        [(i,i),(width-i,height-i)],
+        outline=(0,0,0,alpha)
+    )
+
+image = Image.alpha_composite(
+    image.convert("RGBA"),
+    vignette
+).convert("RGB")
+
+draw = ImageDraw.Draw(image)
     for y in range(height):
         ratio = y / height
         r = int(bg_top[0] * (1 - ratio) + bg_bottom[0] * ratio)
@@ -78,10 +95,10 @@ def create_graphic(headline):
     if logo_path:
         try:
             bg_logo = Image.open(logo_path).convert("RGBA")
-            bg_logo.thumbnail((550, 550))
+            bg_logo.thumbnail((650, 650))
 
             alpha = bg_logo.split()[3]
-            alpha = alpha.point(lambda p: int(p * 0.08))
+            alpha = alpha.point(lambda p: int(p * 0.15))
             bg_logo.putalpha(alpha)
 
             image.paste(bg_logo, (260, 260), bg_logo)
@@ -89,6 +106,10 @@ def create_graphic(headline):
             pass
 
     draw.rectangle([(0, 0), (1080, 90)], fill=accent)
+    draw.rectangle(
+    [(0, 90), (1080, 98)],
+    fill=(255, 255, 255)
+    )
 
     draw.text((40, 12), "FOOTBALL AI NEWSROOM",
               font=banner_font, fill="white")
@@ -99,9 +120,11 @@ def create_graphic(headline):
               font=small_font, fill="white")
 
     draw.rounded_rectangle(
-        [(50, 140), (650, 220)],
-        radius=20,
-        fill=accent
+    [(50, 140), (650, 220)],
+    radius=20,
+    fill=accent,
+    outline=(255,255,255),
+    width=3
     )
 
     draw.text(
@@ -157,11 +180,6 @@ def create_graphic(headline):
         except:
             pass
 
-    draw.rounded_rectangle(
-        [(35, 340), (780, 820)],
-        radius=30,
-        fill=(20, 20, 20)
-    )
 
     words = headline.upper().split()
     lines = []
