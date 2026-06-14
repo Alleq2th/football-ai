@@ -1,4 +1,4 @@
-‎from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
 ‎from datetime import datetime
 ‎
 ‎def create_graphic(headline):
